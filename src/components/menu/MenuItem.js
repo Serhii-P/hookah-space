@@ -40,7 +40,7 @@ export default function MenuItem({
           onClick={() => dispatch(addToFavorites(product))}
           className="absolute p-2 top-2 right-2 w-12 h-12 bg-black z-10 cursor-pointer
   flex items-center justify-center hover:text-gray-400
-  opacity-0 transition-opacity duration-300 group-hover:opacity-100"
+  opacity-0 sm:opacity-100 transition-opacity duration-300 group-hover:opacity-100 "
         >
           {likedProduct ? <Checked /> : <Like />}
         </div>

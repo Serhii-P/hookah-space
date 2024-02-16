@@ -10,7 +10,7 @@ export default function SideMenu({ children, setMobMenuIsOpen, mobMenuIsOpen }) 
       ></div>
 
       <div
-        className="z-20	p-4 absolute top-0 left-[-100%] h-full w-[300px] bg-stone-900  transition-left duration-300"
+        className="z-20	p-4 absolute top-0 left-[-100%] h-screen w-[300px] bg-stone-900  transition-left duration-300"
         style={{ left: mobMenuIsOpen ? 0 : "-100%" }}
       >
         <div

@@ -4,6 +4,7 @@ import Like from "@/components/icons/Like";
 import CategoriesSection from "@/components/layout/CategoriesSection";
 import ImagesSlider from "@/components/layout/ImagesSlider";
 import SideMenu from "@/components/layout/SideMenu";
+import ProductMenu from "@/components/layout/skeleton/ProductMenu";
 import MenuItem from "@/components/menu/MenuItem";
 import {
   decrement,
@@ -26,6 +27,7 @@ export default function ProductPage() {
   const [allProducts, setAllProducts] = useState([]);
   const [categories, setCategories] = useState([]);
   const [similar, setSimilar] = useState([]);
+  const [loginInProgress, setLoginInProgress] = useState(false);
 
   const { id: productId } = useParams();
   const [category, setCategory] = useState(null);
@@ -34,11 +36,13 @@ export default function ProductPage() {
   const dispatch = useDispatch();
 
   useEffect(() => {
+    setLoginInProgress(true);
     fetch("/api/menu-items").then((res) => {
       res.json().then((elements) => {
         const productDetails = elements.find((el) => el._id === productId);
         setProduct(productDetails);
         setAllProducts(elements);
+        setLoginInProgress(false);
       });
     });
 
@@ -106,6 +110,7 @@ export default function ProductPage() {
             categories={categories}
           />
         </div>
+        {loginInProgress && <ProductMenu />}
         <div className="grow grid grid-cols-2	 gap-4 py-12 md:py-4 md:grid-cols-1">
           <div className="px-12 xl:px-4">
             <ImagesSlider images={product?.images} />

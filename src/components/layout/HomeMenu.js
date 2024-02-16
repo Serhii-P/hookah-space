@@ -2,11 +2,16 @@
 import MenuItem from "../menu/MenuItem";
 import { useEffect, useState } from "react";
 import CategoryItem from "../menu/CategoryItem";
+import CategoryCard from "./skeleton/CategoryCard";
+import ItemCard from "./skeleton/ItemCard";
 
 export default function HomeMenu() {
   const [bestSellers, setBestSellers] = useState([]);
   const [categories, setCategories] = useState([]);
+  const [loginInProgress, setLoginInProgress] = useState(false);
+
   useEffect(() => {
+    setLoginInProgress(true);
     fetch("/api/menu-items").then((res) => {
       res.json().then((menuItems) => {
         const sellItems = menuItems
@@ -19,12 +24,14 @@ export default function HomeMenu() {
             isWhiteImgBackground,
           }));
         setBestSellers(sellItems);
+        setLoginInProgress(false);
       });
     });
 
     fetch("/api/categories").then((res) => {
       res.json().then((categories) => {
         setCategories(categories);
+        setLoginInProgress(false);
       });
     });
   }, []);
@@ -35,6 +42,7 @@ export default function HomeMenu() {
         className="grid grid-cols-4 gap-4 px-4
       lg:grid-cols-3 lg:gap-3 md:grid-cols-2"
       >
+        {loginInProgress && <CategoryCard cards={8} />}
         {categories &&
           categories.map((category) => (
             <CategoryItem key={category._id} {...category} />
@@ -47,8 +55,10 @@ export default function HomeMenu() {
           className="grid grid-cols-4	px-4 gap-4
         lg:grid-cols-3 lg:gap-3 md:grid-cols-2"
         >
+          {loginInProgress && <ItemCard cards={4} />}
           {bestSellers?.length > 0 &&
-            bestSellers.map((item) => <MenuItem key={item.id} {...item} />)}
+            bestSellers.map((item) => <MenuItem key={item.id} {...item} />)
+            }
         </div>
       </div>
     </>

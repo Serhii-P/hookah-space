@@ -11,6 +11,9 @@ import FavButton from "../FavButton";
 import { Squash as Hamburger } from "hamburger-react";
 import LogoutButton from "../LogoutButton";
 import SideMenu from "./SideMenu";
+import Skeleton from 'react-loading-skeleton'
+import 'react-loading-skeleton/dist/skeleton.css'
+import HeaderMenuItem from "./skeleton/HeaderMenuItem";
 
 function AuthLinks({ status, userName }) {
   if (status === "authenticated") {
@@ -50,9 +53,11 @@ export default function Header() {
   const [mobMenuIsOpen, setMobMenuIsOpen] = useState(false);
 
   useEffect(() => {
+    setLoginInProgress(true)
     fetch("/api/categories").then((res) => {
       res.json().then((categories) => {
         setCategories(categories);
+        setLoginInProgress(false)
       });
     });
   }, []);
@@ -70,26 +75,26 @@ export default function Header() {
     return categoryNamesToDisplay.includes(category.name);
   });
 
-  async function handleFormSubmit(ev) {
-    ev.preventDefault();
-    setLoginInProgress(true);
+  // async function handleFormSubmit(ev) {
+  //   ev.preventDefault();
+  //   setLoginInProgress(true);
 
-    if (!isValidEmail(email)) {
-      setErrorMessage("Email is invalid");
+  //   if (!isValidEmail(email)) {
+  //     setErrorMessage("Email is invalid");
 
-      return;
-    }
+  //     return;
+  //   }
 
-    if (!password || password.length < 5) {
-      setErrorMessage("Password is invalid. It should be at least 5 digits");
+  //   if (!password || password.length < 5) {
+  //     setErrorMessage("Password is invalid. It should be at least 5 digits");
 
-      return;
-    }
+  //     return;
+  //   }
 
-    await signIn("credentials", { email, password, callbackUrl: "/" });
+  //   await signIn("credentials", { email, password, callbackUrl: "/" });
 
-    setLoginInProgress(false);
-  }
+  //   setLoginInProgress(false);
+  // }
 
   const session = useSession();
   const status = session?.status;
@@ -131,6 +136,7 @@ export default function Header() {
             >
               HOME
             </Link>
+            {loginInProgress && <HeaderMenuItem cards={6}/>}
             {displayedCategories.map((category) => (
               <Link
                 key={category._id}

@@ -2,6 +2,7 @@
 import GoBackButton from "@/components/GoBackButton";
 import CategoriesSection from "@/components/layout/CategoriesSection";
 import SideMenu from "@/components/layout/SideMenu";
+import ItemCard from "@/components/layout/skeleton/ItemCard";
 import MenuItem from "@/components/menu/MenuItem";
 import { useParams, useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
@@ -11,9 +12,12 @@ export default function ProductsPage() {
   const [products, setProducts] = useState([]);
   const { id: categoryId } = useParams();
   const [mobMenuIsOpen, setMobMenuIsOpen] = useState(false);
+  const [loginInProgress, setLoginInProgress] = useState(false);
 
   const router = useRouter();
   useEffect(() => {
+    setLoginInProgress(true);
+
     fetch("/api/menu-items").then((res) => {
       res.json().then((items) => {
         const categoryItems = items
@@ -26,6 +30,7 @@ export default function ProductsPage() {
             isWhiteImgBackground,
           }));
         setProducts(categoryItems);
+        setLoginInProgress(false);
       });
     });
 
@@ -83,6 +88,8 @@ export default function ProductsPage() {
           <CategoriesSection categoryId={categoryId} categories={categories} />
         </div>
         <div className="grow grid grid-cols-4	 gap-4 lg:grid-cols-3 lg:gap-3 md:grid-cols-2">
+          {loginInProgress && <ItemCard cards={4} />}
+
           {products.length > 0 &&
             products.map((item) => <MenuItem key={item.id} {...item} />)}
         </div>

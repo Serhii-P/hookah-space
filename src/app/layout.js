@@ -6,6 +6,7 @@ import { getServerSession } from "next-auth";
 import { Toaster } from "react-hot-toast";
 import Providers from "@/components/Providers";
 import Footer from "@/components/layout/Footer";
+import { SkeletonTheme } from "react-loading-skeleton";
 
 const montserrat = Montserrat({
   subsets: ["latin"],
@@ -25,10 +26,11 @@ export default function RootLayout({ children }) {
         <Providers>
           <AppContext session={session}>
             <Toaster />
-
-            <Header />
-            <main>{children}</main>
-            <Footer />
+            <SkeletonTheme baseColor="#313131" highlightColor="#525252">
+              <Header />
+              <main>{children}</main>
+              <Footer />
+            </SkeletonTheme>
           </AppContext>
         </Providers>
       </body>
