@@ -2,26 +2,99 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
-  --foreground-rgb: 0, 0, 0;
-  --background-start-rgb: 214, 219, 220;
-  --background-end-rgb: 255, 255, 255;
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --foreground-rgb: 255, 255, 255;
-    --background-start-rgb: 0, 0, 0;
-    --background-end-rgb: 0, 0, 0;
-  }
-}
-
 body {
-  color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
-      to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb));
+  background: #000;
+  color: #fff;
+  font-size: 16px;
+  font-weight: 500;
+}
+
+h1 {
+  font-size: 68px;
+  line-height: 81px;
+  font-weight: 600;
+  @apply md:text-4xl
+}
+
+h2 {
+  font-size: 22px;
+  line-height: 30px;
+  font-weight: 600;
+}
+
+h3 {
+  font-size: 20px;
+  line-height: 28px;
+  font-weight: 600;
+}
+
+h4 {
+  @apply text-lg	leading-6	font-semibold	
+  /* font-size: 18px;
+  line-height: 25px;
+  font-weight: 600; */
+}
+
+h5 {
+  font-size: 14px;
+  line-height: 20px;
+  font-weight: 600;
+}
+
+h6 {
+  font-size: 13px;
+  line-height: 16px;
+  font-weight: 600;
+}
+
+label {
+  @apply text-sm	font-normal
+}
+
+input {
+  @apply text-white
+}
+
+input[type="email"],
+input[type="password"],
+input[type="text"] {
+  @apply border-2 border-gray-300 bg-black rounded-3xl
+}
+
+button {
+  @apply border-0 rounded-3xl w-full
+}
+button:disabled {
+  @apply cursor-not-allowed bg-gray-400 pointer-events-none	;
+}
+button[type="submit"] {
+
+  @apply text-white bg-green-600 hover:bg-green-700 py-3
+}
+/* select, */
+input[type="email"],
+input[type="password"],
+input[type="tel"],
+input[type="text"] {
+    @apply block w-full rounded-3xl;
+    @apply border-2 bg-transparent px-4 py-3 focus:outline-none border-gray-700 text-white active:border-gray-500 focus:border-gray-500;
+}
+button[type="submit"]:disabled {
+  @apply cursor-not-allowed bg-green-200;
+}
+
+input[type="email"]:disabled,
+input[type="password"]:disabled,
+input[type="tel"]:disabled,
+input[type="text"]:disabled {
+    @apply bg-gray-300 border-0 cursor-not-allowed text-gray-500;
+}
+
+.button {
+  @apply border-2 border-slate-400 hover:border-white p-3 inline-flex	
+}
+
+div.tabs > *.active{
+  @apply underline underline-offset-8	decoration-red-500	decoration-2	;
+  /* @apply border-b-2	border-red-500	border-spacing-y-2		; */
 }

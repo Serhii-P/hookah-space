@@ -7,12 +7,32 @@ module.exports = {
   ],
   theme: {
     extend: {
-      backgroundImage: {
-        'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
-        'gradient-conic':
-          'conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))',
+      colors: {
+        alert: "#ed0532",
+        midnight: "#101010",
+        basicGreen: "#43b02a"
+      },
+      scale: {
+        '105': '1.05',
+      },
+      keyframes: {
+        pingOnce: {
+          "50%": { transform: "scale(2)" },
+          100: { transform: "scale(1)" },
+        },
+      },
+      animation: {
+        pingOnce: "pingOnce 0.5s cubic-bezier(0, 0, 0.2, 1) ",
       },
     },
+    screens: {
+      '3xl': {'max': '1535px'},
+      '2xl': {'max': '1350px'},
+      'xl': {'max': '1279px'},
+      'lg': {'max': '1023px'},
+      'md': {'max': '767px'},
+      'sm': {'max': '530px'},
+    }
   },
   plugins: [],
 }
