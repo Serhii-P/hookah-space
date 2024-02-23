@@ -14,6 +14,7 @@ import SideMenu from "./SideMenu";
 import Skeleton from 'react-loading-skeleton'
 import 'react-loading-skeleton/dist/skeleton.css'
 import HeaderMenuItem from "./skeleton/HeaderMenuItem";
+import useWindowWidth from "@/hooks/useWindowWidth";
 
 function AuthLinks({ status, userName }) {
   if (status === "authenticated") {
@@ -61,6 +62,8 @@ export default function Header() {
       });
     });
   }, []);
+
+  const windowWidth = useWindowWidth();
 
   const categoryNamesToDisplay = [
     "E-cigarettes",
@@ -112,11 +115,13 @@ export default function Header() {
       "
       >
         <nav className="flex w-full">
-          <Hamburger
-            size={21}
-            toggled={mobMenuIsOpen}
-            toggle={setMobMenuIsOpen}
-          />
+          {windowWidth < 1023 && (
+            <Hamburger
+              size={21}
+              toggled={mobMenuIsOpen}
+              toggle={setMobMenuIsOpen}
+            />
+          )}
           <Link
             href="/"
             className="flex items-center lg:mx-auto md:ms-auto md:mr-0"

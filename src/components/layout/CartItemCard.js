@@ -1,5 +1,4 @@
 "use client";
-import React, { useEffect, useState } from "react";
 import QtyButtons from "../QtyButtons";
 import Image from "next/image";
 import {
@@ -8,25 +7,12 @@ import {
   removeFromCart,
 } from "@/redux/features/cartSlice";
 import { useDispatch } from "react-redux";
+import useWindowWidth from "@/hooks/useWindowWidth";
 
 export default function CartItemCard({ cartItem }) {
-  const [windowWidth, setWindowWidth] = useState(0);
+  const windowWidth = useWindowWidth();
 
   const dispatch = useDispatch();
-
-  useEffect(() => {
-    const handleResize = () => {
-      setWindowWidth(window.innerWidth);
-    };
-
-    setWindowWidth(window.innerWidth);
-
-    window.addEventListener("resize", handleResize);
-
-    return () => {
-      window.removeEventListener("resize", handleResize);
-    };
-  }, []);
 
   return (
     <tr

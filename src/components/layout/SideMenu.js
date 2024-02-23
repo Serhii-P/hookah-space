@@ -15,7 +15,7 @@ export default function SideMenu({ children, setMobMenuIsOpen, mobMenuIsOpen }) 
       >
         <div
           onClick={() => setMobMenuIsOpen(false)}
-          className="text-white w-8 ms-auto"
+          className="text-white w-8 ms-auto cursor-pointer"
         >
           <Close />
         </div>
